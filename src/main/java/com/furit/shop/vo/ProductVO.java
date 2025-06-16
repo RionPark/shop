@@ -25,4 +25,10 @@ public class ProductVO {
 	private String cretim;
 	private String lmodat;
 	private String lmotim;
+	public static void main(String[] args) {
+		String str = "Lorem ipsum dolor sit amet consectetur\r\n"
+				+ "adipisicing elit sed do eiusmod te\r\n"
+				+ "incididunt";
+		System.out.println(str.length());
+	}
 }
