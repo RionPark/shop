@@ -23,7 +23,11 @@ public class CartHistoryController {
 	private final CartHistoryService cartService;
 	
 	@GetMapping("/carts")
-	public List<CartHistoryVO> selectCartHistoryList(CartHistoryVO cartHistory){
+	public List<CartHistoryVO> selectCartHistoryList(CartHistoryVO cartHistory, HttpSession session){
+		UserVO user = (UserVO)session.getAttribute("user");
+		if(user!=null) {
+			cartHistory.setUiNum(user.getUiNum());
+		}
 		return cartService.selectCartHistoryList(cartHistory);
 	}
 	@GetMapping("/carts/{chiNum}")
@@ -34,7 +38,9 @@ public class CartHistoryController {
 	public int insertCartHistory(@RequestBody CartHistoryVO cartHistory, HttpSession session){
 		UserVO user = (UserVO)session.getAttribute("user");
 		cartHistory.setUiNum(user.getUiNum());
-		return cartService.insertCartHistory(cartHistory);
+		cartService.insertCartHistory(cartHistory);
+		cartHistory.setPiNum(0);
+		return cartService.selectCartHistoryList(cartHistory).size();
 	}
 	@PutMapping("/carts")
 	public int updateCartHistory(CartHistoryVO cartHistory){

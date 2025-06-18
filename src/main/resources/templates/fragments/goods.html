@@ -244,13 +244,13 @@
     <!-- Fruits Shop End-->
     <script>
     	function addCart(piNum){
-    		alert(piNum);
     		$.ajax({
     			url: rootPath + 'carts',
     			method: 'POST',
     			data : JSON.stringify({piNum:piNum}),
     			contentType : 'application/json',
     			success : function(res){
+    				$('#cartsCnt').text(res);
     				alert('장보구니에 등록되었습니다.')
     			},
     			error : function(err){
