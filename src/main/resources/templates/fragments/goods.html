@@ -51,7 +51,7 @@
                               <p class="text-dark fs-5 fw-bold mb-0">
                                 <span th:text="${product.piPrice}"></span>원 / <span th:text="${product.piUnit}"></span>
                               </p>
-                              <a href="#" class="btn border border-secondary rounded-pill px-3 text-primary"><i class="fa fa-shopping-bag me-2 text-primary"></i> Add to cart</a>
+                              <a th:if="${session.user !=null}" th:href="${'javascript:void(0);addCart(' + product.piNum + ')'}" class="btn border border-secondary rounded-pill px-3 text-primary"><i class="fa fa-shopping-bag me-2 text-primary"></i> Add to cart</a>
                             </div>
                           </div>
                         </div>
@@ -242,6 +242,24 @@
       </div>
     </div>
     <!-- Fruits Shop End-->
+    <script>
+    	function addCart(piNum){
+    		alert(piNum);
+    		$.ajax({
+    			url: rootPath + 'carts',
+    			method: 'POST',
+    			data : JSON.stringify({piNum:piNum}),
+    			contentType : 'application/json',
+    			success : function(res){
+    				alert('장보구니에 등록되었습니다.')
+    			},
+    			error : function(err){
+    				console.log(err);
+    				alert('오류가 발생하였습니다.');
+    			}
+    		})
+    	}
+    </script>
   </th:block>
 </body>
 </html>

@@ -54,8 +54,12 @@ public class UserService {
 		return user;
 	}
 	
-	public UserVO updateUser(UserVO user){
+	public UserVO updateUser(UserVO user, HttpSession session){
+		String uiProfileImg = fileUtil.saveFile(user.getUiProfile(), "profile");
+		user.setUiProfileImg(uiProfileImg);
 		userMapper.updateUser(user);
+		UserVO dbUser = userMapper.selectUserById(user.getUiId());
+		session.setAttribute("user", dbUser);
 		return user;
 	}
 	

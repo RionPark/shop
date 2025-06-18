@@ -40,8 +40,8 @@ public class UserController {
 	}
 	
 	@PutMapping("/users")
-	public UserVO updateUser(UserVO user){
-		return userService.updateUser(user);
+	public UserVO updateUser(UserVO user, HttpSession session){
+		return userService.updateUser(user,session);
 	}
 	@DeleteMapping("/users")
 	public int deleteUser(int uiNum) {
