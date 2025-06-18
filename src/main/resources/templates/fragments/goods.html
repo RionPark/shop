@@ -37,7 +37,8 @@
                   <div class="row g-4">
                     <th:block th:each="product : ${products}">
                       <div class="col-md-6 col-lg-4 col-xl-3">
-                        <div class="rounded position-relative fruite-item">
+                        <div class="rounded position-relative fruite-item"  style="cursor:pointer" 
+                          onclick="goPage(this, '/shop-detail')" th:data-pi-num="${product.piNum}">
                           <div class="fruite-img">
                             <!--  th:src="@{/files/}" => /files/ + ${product.piImgPath} -->
                             <img th:src="@{/files/__${product.piImgPath}__}" class="img-fluid w-100 rounded-top" alt="">
@@ -243,6 +244,9 @@
     </div>
     <!-- Fruits Shop End-->
     <script>
+    	function goPage(obj, url){
+    		location.href=url + '?piNum=' + obj.getAttribute('data-pi-num');
+    	}
     	function addCart(piNum){
     		$.ajax({
     			url: rootPath + 'carts',

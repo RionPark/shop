@@ -33,6 +33,7 @@ public class ViewsController {
 	
 	@GetMapping("/views/**")
 	public void goPage( Model m) {
+		m.addAttribute("str","123");
 	}
 	@GetMapping("/test")
 	@ResponseBody

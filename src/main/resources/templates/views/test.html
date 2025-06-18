@@ -5,8 +5,16 @@
 <title>Insert title here</title>
 </head>
 <body>
-  <div th:text="${text}"></div>
-  <div th:text="${#strings.length(text)}"></div>
-  <div th:text="${#strings.length(text)>50?#strings.substring(text,0,49) + '...':text}"></div>
+<div th:text="${str}"></div>
+<div id="test" th:data-pi-num="${str}" th:onclick="'goPage(' + '\'' + ${str} + '\'' + ')'">
+</div>
+
+<script>
+function goPage(evt, url){
+	const obj = evt.target;
+	const piNum = obj.getAttribute('data-pi-num');
+	alert(url + '?piNum=' + piNum);
+}
+</script>
 </body>
 </html>

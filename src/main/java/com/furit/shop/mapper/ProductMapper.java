@@ -6,7 +6,8 @@ import com.furit.shop.vo.ProductVO;
 
 public interface ProductMapper {
 	List<ProductVO> selectProductList(ProductVO Product);
+	ProductVO selectProduct(int piNum);
 	int insertProduct(ProductVO Product);
 	int updateProduct(ProductVO Product);
-	int deleteProduct(int ciNum);
+	int deleteProduct(int piNum);
 }	
