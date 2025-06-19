@@ -3,10 +3,13 @@
 <mapper namespace="com.furit.shop.mapper.ProductMapper">
 
   <select id="selectProductList" resultType="com.furit.shop.vo.ProductVO">
-    SELECT PI.*,CI.CI_NAME 
+    SELECT PI.*,CI.CI_NAME , IFNULL(PRI.PRI_RATE,0) AS PRI_RATE
     FROM PRODUCT_INFO PI
     INNER JOIN CATEGORY_INFO CI
     ON PI.CI_NUM = CI.CI_NUM
+    left OUTER join (select pi_num, round(avg(pri_rate)) as pri_rate  from PRODUCT_REPLY_INFO
+    group by pi_num) PRI
+    on PI.PI_NUM = PRI.PI_NUM
     <where>
       <if test='ciNum != null and ciNum != 0'>
         AND PI.CI_NUM = #{ciNum}
@@ -17,10 +20,13 @@
   </select>
   
   <select id="selectProduct" resultType="com.furit.shop.vo.ProductVO">
-    SELECT PI.*,CI.CI_NAME 
+    SELECT PI.*,CI.CI_NAME , IFNULL(PRI.PRI_RATE,0) AS PRI_RATE
     FROM PRODUCT_INFO PI
     INNER JOIN CATEGORY_INFO CI
     ON PI.CI_NUM = CI.CI_NUM
+    left OUTER join (select pi_num, round(avg(pri_rate)) as pri_rate  from PRODUCT_REPLY_INFO
+    group by pi_num) PRI
+    on PI.PI_NUM = PRI.PI_NUM
     WHERE PI.PI_NUM = #{piNum}
   </select>
   

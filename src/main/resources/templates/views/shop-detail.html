@@ -19,7 +19,6 @@
 
 
     <!-- Single Product Start -->
-    <div th:text="${product}"></div>
     <div class="container-fluid py-5 mt-5">
       <div class="container py-5">
         <div class="row g-4 mb-5">
@@ -27,28 +26,25 @@
             <div class="row g-4">
               <div class="col-lg-6">
                 <div class="border rounded">
-                  <a href="#"> <img src="img/single-item.jpg"
-                    class="img-fluid rounded" alt="Image">
+                  <a href="#"> 
+                    <img th:src="@{/files/__${product.piImgPath}__}" class="img-fluid rounded" alt="Image">
                   </a>
                 </div>
               </div>
               <div class="col-lg-6">
-                <h4 class="fw-bold mb-3">Brocoli</h4>
-                <p class="mb-3">Category: Vegetables</p>
-                <h5 class="fw-bold mb-3">3,35 $</h5>
-                <div class="d-flex mb-4">
-                  <i class="fa fa-star text-secondary"></i> <i
-                    class="fa fa-star text-secondary"></i> <i
-                    class="fa fa-star text-secondary"></i> <i
-                    class="fa fa-star text-secondary"></i> <i
-                    class="fa fa-star"></i>
+                <h4 class="fw-bold mb-3" th:text="${product.piName}">Brocoli</h4>
+                <p class="mb-3">Category: <span th:text="${product.ciName}">Vegetables</span></p>
+                <h5 class="fw-bold mb-3" th:text="${product.piPrice + '원'}">3,35 $</h5>
+                <div class="d-flex mb-4" id="productStars">
+                  <i class="fa fa-star"></i> 
+                  <i class="fa fa-star"></i> 
+                  <i class="fa fa-star"></i> 
+                  <i class="fa fa-star"></i> 
+                  <i class="fa fa-star"></i>
                 </div>
-                <p class="mb-4">The generated Lorem Ipsum is
+                <p class="mb-4" th:text="${product.piDesc}">The generated Lorem Ipsum is
                   therefore always free from repetition injected humour,
                   or non-characteristic words etc.</p>
-                <p class="mb-4">Susp endisse ultricies nisi vel quam
-                  suscipit. Sabertooth peacock flounder; chain pickerel
-                  hatchetfish, pencilfish snailfish</p>
                 <div class="input-group quantity mb-5"
                   style="width: 100px;">
                   <div class="input-group-btn">
@@ -57,7 +53,7 @@
                       <i class="fa fa-minus"></i>
                     </button>
                   </div>
-                  <input type="text"
+                  <input type="text" id="chiQty"
                     class="form-control form-control-sm text-center border-0"
                     value="1">
                   <div class="input-group-btn">
@@ -67,10 +63,12 @@
                     </button>
                   </div>
                 </div>
-                <a href="#"
+                <a href="javascript:void(0);"
+                  onclick="addCart(this)";
+                  th:data-pi-num="${product.piNum}"
                   class="btn border border-secondary rounded-pill px-4 py-2 mb-4 text-primary"><i
-                  class="fa fa-shopping-bag me-2 text-primary"></i> Add
-                  to cart</a>
+                  class="fa fa-shopping-bag me-2 text-primary"></i> 
+                  Add to cart</a>
               </div>
               <div class="col-lg-12">
                 <nav>
@@ -89,7 +87,7 @@
                 </nav>
                 <div class="tab-content mb-5">
                   <div class="tab-pane active" id="nav-about"
-                    role="tabpanel" aria-labelledby="nav-about-tab">
+                    role="tabpanel" aria-labelledby="nav-about-tab" th:text="${product.piDesc2}">
                     <p>The generated Lorem Ipsum is therefore always
                       free from repetition injected humour, or
                       non-characteristic words etc. Susp endisse
@@ -216,20 +214,17 @@
                 <div class="row g-4">
                   <div class="col-lg-6">
                     <div class="border-bottom rounded">
-                      <input type="text"
-                        class="form-control border-0 me-4"
-                        placeholder="Yur Name *">
+                      <input type="text" id="priName" class="form-control border-0 me-4" placeholder="Yur Name *">
                     </div>
                   </div>
                   <div class="col-lg-6">
                     <div class="border-bottom rounded">
-                      <input type="email" class="form-control border-0"
-                        placeholder="Your Email *">
+                      <input type="email" class="form-control border-0" id="priEmail" placeholder="Your Email *">
                     </div>
                   </div>
                   <div class="col-lg-12">
                     <div class="border-bottom rounded my-4">
-                      <textarea name="" id=""
+                      <textarea name="priComment" id="priContent"
                         class="form-control border-0" cols="30" rows="8"
                         placeholder="Your Review *" spellcheck="false"></textarea>
                     </div>
@@ -239,16 +234,16 @@
                       class="d-flex justify-content-between py-3 mb-5">
                       <div class="d-flex align-items-center">
                         <p class="mb-0 me-3">Please rate:</p>
-                        <div class="d-flex align-items-center"
-                          style="font-size: 12px;">
-                          <i class="fa fa-star text-muted"></i> <i
-                            class="fa fa-star"></i> <i
-                            class="fa fa-star"></i> <i
-                            class="fa fa-star"></i> <i
-                            class="fa fa-star"></i>
+                        <div class="d-flex align-items-center" style="font-size: 12px;" onclick="checkStart(event,this)" id="starts">
+                          <i class="fa fa-star"></i> 
+                          <i class="fa fa-star"></i> 
+                          <i class="fa fa-star"></i> 
+                          <i class="fa fa-star"></i> 
+                          <i class="fa fa-star"></i>
                         </div>
                       </div>
-                      <a href="#"
+                      <a href="javascript:void(0)"
+                        onclick="insertProductReply()"
                         class="btn border border-secondary text-primary rounded-pill px-4 py-3">
                         Post Comment</a>
                     </div>
@@ -496,8 +491,8 @@
                   <p class="text-dark fs-5 fw-bold">$4.99 / kg</p>
                   <a href="#"
                     class="btn border border-secondary rounded-pill px-3 py-1 mb-4 text-primary"><i
-                    class="fa fa-shopping-bag me-2 text-primary"></i>
-                    Add to cart</a>
+                    class="fa fa-shopping-bag me-2 text-primary">
+                    </i>Add to cart</a>
                 </div>
               </div>
             </div>
@@ -660,7 +655,75 @@
       </div>
     </div>
     <!-- Single Product End -->
+    <script th:inline="javascript">
+    	$(document).ready(function(){
+    		const priRate = /*[[${product.priRate}]]*/ 0;
+    		const iObjs = $('#productStars>i');
+    		for(let i=0;i<priRate;i++){
+  				const iObj = iObjs[i];
+  				iObj.classList.add('text-secondary');
+    		}
+    	});
+    	function insertProductReply(){
+    		const piNum = /*[[${product.piNum}]]*/ 0;
+    		const priRate = $('#starts>i.text-secondary').length;
+    		const param = {
+    				priName : $('#priName').val(),
+    				priEmail : $('#priEmail').val(),
+    				priContent : $('#priContent').val(),
+    				priRate : priRate,
+    				piNum : piNum
+    		}
+    		$.ajax({
+    			url: rootPath + 'product-replies',
+    			type:'POST',
+    			contentType:'application/json',
+    			data: JSON.stringify(param),
+    			success : function(res){
+    				alert('리뷰등록이 성공하였습니다.');
+    			},
+    			error : function(){
+    				alert('오류가 발생하였습니다.')
+    			}
+    		})
+    	}
+    	function checkStart(evt, obj){
+    		const target = evt.target;
+    		if(target!=obj){
+    			const iObjs = obj.children;
+    			for(let i=0;i<iObjs.length;i++){
+    				const iObj = iObjs[i];
+    				iObj.classList.remove('text-secondary');
+    			}
 
+    			for(let i=0;i<iObjs.length;i++){
+    				const iObj = iObjs[i];
+    				iObj.classList.add('text-secondary');
+    				if(iObj===target){
+    					return;
+    				}
+    			}
+    		}
+    	}
+    	function addCart(obj){
+    		const piNum = obj.getAttribute('data-pi-num');
+    		const chiQty = $('#chiQty').val();
+    		$.ajax({
+    			url: rootPath + 'carts',
+    			method: 'POST',
+    			data : JSON.stringify({piNum:piNum,chiQty:chiQty}),
+    			contentType : 'application/json',
+    			success : function(res){
+    				$('#cartsCnt').text(res);
+    				alert('장보구니에 등록되었습니다.')
+    			},
+    			error : function(err){
+    				console.log(err);
+    				alert('오류가 발생하였습니다.');
+    			}
+    		})
+    	}
+    </script>
 
   </th:block>
 </body>
