@@ -12,13 +12,16 @@ public class WebConfig implements WebMvcConfigurer {
 	@Value("${file.view.path}") 
 	private String fileViewPath;
 	
+	@Autowired
+	private AuthInterceptor authInterceptor;
+	
 	public void addResourceHandlers(ResourceHandlerRegistry registry) {
 		registry.addResourceHandler("/files/**")
 		.addResourceLocations(fileViewPath);
 	}
 	
 	public void addInterceptors(InterceptorRegistry registry) {
-		registry.addInterceptor(new AuthInterceptor())
+		registry.addInterceptor(authInterceptor)
 						.addPathPatterns("/**")
 						.excludePathPatterns("/","/views/user/login",
 								"/views/user/join","/css/**","/img/**","/js/**","/lib/**","/scss/**"
