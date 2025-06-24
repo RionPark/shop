@@ -3,7 +3,9 @@
 <mapper namespace="com.furit.shop.mapper.ProductReplyMapper">
 
   <select id="selectProductReplyList" resultType="com.furit.shop.vo.ProductReplyVO">
-    SELECT * FROM PRODUCT_REPLY_INFO
+    select PRI.*, UI.UI_PROFILE_IMG from product_reply_info pri
+    inner join USER_INFO UI
+    on PRI.UI_NUM = UI.UI_NUM
     <where>
       <if test='piNum != null and piNum != 0'>
         AND PI_NUM = #{piNum}
