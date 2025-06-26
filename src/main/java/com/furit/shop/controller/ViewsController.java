@@ -18,9 +18,12 @@ import lombok.RequiredArgsConstructor;
 @Controller
 @RequiredArgsConstructor
 public class ViewsController {
+
+    private final ProductController productController;
 	private final ProductService productService;
 	private final CategoryService categoryService;
-	
+
+
 
 	@GetMapping("/")
 	public String home(Model m, ProductVO product) {
@@ -32,12 +35,19 @@ public class ViewsController {
 	}
 	
 	@GetMapping("/views/**")
-	public void goPage( Model m) {
-		m.addAttribute("str","123");
+	public void goPage() {}
+	
+	static int t() {
+		return 1;
 	}
-	@GetMapping("/test")
-	@ResponseBody
-	public String test() {
-		return "test";
+	
+	static void t1() {
+		
+	}
+	public static void main(String[] args) {
+		int t = t(); //
+		System.out.println(t);//1
+		// int t = t1();
+		
 	}
 }
