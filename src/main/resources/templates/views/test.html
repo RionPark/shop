@@ -10,12 +10,13 @@
   <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.4.1/font/bootstrap-icons.css" rel="stylesheet">
 </head>
 <body>
-
-<input type="range" id="piPrice" onchange="changePrice(this)">
-<div id="divPrice"></div>
+<a href="javascript:void(0)" onclick="log(this)"><span>과일</span></a><br>
+<a href="javascript:void(0)" onclick="log(this)"><span>야채</span></a><br>
+<span>고기</span>
 <script>
-function changePrice(obj){
-	$('#divPrice').html(obj.value);
+function log(obj){
+	const spanObj = obj.querySelector('span');
+	alert(spanObj.innerText);
 }
 </script>
 </body>

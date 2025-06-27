@@ -39,8 +39,8 @@ public class ShopController {
 	}
 	
 	@GetMapping("/shops")
-	public String goShop(Model m) {
-		m.addAttribute("products",productService.selectProductList(null));
+	public String goShop(Model m,@ModelAttribute ProductVO product) {
+		m.addAttribute("products",productService.selectProductList2(product));
 		m.addAttribute("categories", categoryService.selectCategoryList(null));
 		return "views/shop";
 	}
